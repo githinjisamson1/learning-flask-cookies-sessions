@@ -3,11 +3,15 @@ from flask_session import Session
 
 app = Flask(__name__)
 
+# data is not stored forever/permanently
 app.config["SESSION_PERMANENT"] = False
+
+# data is stored as files
 app.config["SESSION_TYPE"] = "filesystem"
+
 Session(app)
 
-
+# code below remains the same
 @app.route("/")
 def home():
     response = make_response("<h1>Session set</h1>")
@@ -26,3 +30,4 @@ if __name__ == "__main__":
 
 # !data is stored in server => secure
 # no need for secret key
+# if the ID is tampered with, server knows that data is tampered with by the user
