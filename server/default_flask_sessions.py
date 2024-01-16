@@ -4,12 +4,14 @@ app = Flask(__name__)
 
 app.secret_key = "qwertyasdfghzxcvbnm"
 
+# set session
 @app.route("/")
 def home():
     response = make_response("<h1>Session set</h1>")
     session["username"] = "John"
     return response
 
+# read session
 @app.route("/get")
 def get_username():
     username = session.get("username", None)
@@ -21,8 +23,9 @@ if __name__ == "__main__":
     
 
 # !data is actuallly stored in browser => insecure
-# browser makes request
-# server generates an id to be key for user data(value) and stores in session store
+# browser makes request {"username" : "John", "password": "asdfqwezx"}
+# server generates an id to be key for user data(value) and stores in session store 
+# {qwertyasdfgzxc:{"username" : "John", "password": "asdfqwezx"}}
 # server sends response with Set-Cookie: session=qwertyasdfgzxc in response headers
 # browser makes subsequent request with Cookie: session=qwertyasdfgzxc attached
 # server looks up the Cookie hence persist previous context by using the id
